@@ -1,36 +1,22 @@
 ﻿@model IEnumerable<CityWeather>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Home Page</title>
-        <meta charset="urf-8" />
-        <link href="~/StyleSheet.css" rel="stylesheet"/>
-    </head>
-    <body>
-        <h1>Weather</h1>
+<h1 class="margin-bottom">Weather</h1>
 
-        <div class="page-content margin-top-200">
-            <div class="flex-borderless">
-                @foreach (CityWeather cityWeather in Model)
-                {
-                    <div class="box flex-borderless margin-right @cityWeather.BackgroundColorByTemperature">
-                        <div style="border-right: 3px solid grey;" class="w-50">
-                            <h4 style="font-weight: bold;">@cityWeather.CityName</h4>
-                            <p class="text-dark-grey">@cityWeather.HoursAmPm</p>
-                            <p><a href="/weather/@cityWeather.CityUniqueCode">Details</a></p>
-                        </div>
-                        <div class="w-50">
-                            <p style="font-weight:bold; display: inline;">
-                                <span style="font-size: 30px;">@cityWeather.TemperatureFahrenheit</span>
-                                <span 
-                                    class="text-grey margin-bottom" 
-                                    style="display: inline-block; font-weight: bold;">F</span>
-                            </p>
-                        </div>
+<div class="margin-left margin-top-200">
+    <div class="flex">
+        @foreach (CityWeather cityWeather in Model)
+        {
+            <div class="box cursor-pointer w-30 @cityWeather.BackgroundColorByTemperature">
+                <div class="flex-borderless">
+                    <div class="w-50">
+                        <h4 class="text-dark-grey">@cityWeather.DateAndTime.ToString("hh:mm tt")</h4>
+                        <a href="~/weather/@cityWeather.CityUniqueCode" class="margin-top">Details</a>
                     </div>
-                }
+                    <div class="w-50 border-left">
+                        <h1 class="margin-left">@cityWeather.TemperatureFahrenheit <sup class="text-grey">&#8457</sup></h1>
+                    </div>
+                </div>
             </div>
-        </div>
-    </body>
-</html>
+        }
+    </div>
+</div>

@@ -39,6 +39,11 @@ namespace WeatherAppPracticeView.Controllers
         [Route("/weather/{cityCode}")]
         public IActionResult Details([FromRoute] string? cityCode)
         {
+            if (string.IsNullOrEmpty(cityCode))
+            {
+                return View("InvalidCityCode");
+            }
+
             List<CityWeather> CitiesWeather = new()
             {
                 new CityWeather()
