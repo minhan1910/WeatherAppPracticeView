@@ -1,4 +1,4 @@
-﻿namespace WeatherAppPracticeView.Models
+﻿namespace Models
 {
     public class CityWeather
     {
@@ -9,10 +9,9 @@
 
         public int TemperatureFahrenheit { get; set; }
 
-        public string HoursAmPm  => DateAndTime.ToString("HH:mm tt");
+        public string HoursAmPm => DateAndTime.ToString("HH:mm tt");
 
         public string BackgroundColorByTemperature => TemperatureFahrenheit > 74 ? "green-back" :
                                                       TemperatureFahrenheit < 44 ? "blue-back" : "orange-back";
-
     }
 }

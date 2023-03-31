@@ -1,20 +1,13 @@
 ﻿
 <h1 class="margin-bottom">Weather</h1>          
 
-@if (@ViewBag.cityCode is null)
-{
-    <div class="page-content margin-auto ">
-        <p class="text-red">The city code is not valid!</p>
-    </div>
-} else {
-    <div class="margin-auto w-30">
-        <div class="margin-left margin-top-200">
-            <div class="flex">
-                @await Component.InvokeAsync("CityDetails", new { 
-                    CityWeather = Model,
-                    isDetailsPage = 1
-                })
-            </div>
+<div class="margin-auto w-30">
+    <div class="margin-left margin-top-200">
+        <div class="flex">
+            @await Component.InvokeAsync("CityDetails", new { 
+                CityWeather = Model,
+                isDetailsPage = 1
+            })
         </div>
     </div>
-}
+</div>

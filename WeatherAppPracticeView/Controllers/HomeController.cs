@@ -1,39 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WeatherAppPracticeView.Models;
+using ServiceContracts;
+using Models;
 
 namespace WeatherAppPracticeView.Controllers
 {
     public class HomeController : Controller
     {
-        private static readonly List<CityWeather> CitiesWeather = new()
-            {
-                new CityWeather()
-                {
-                        CityUniqueCode = "LDN",
-                        CityName = "London",
-                        DateAndTime = new DateTime(2030, 1, 1, 8, 0, 0),
-                        TemperatureFahrenheit = 33
-                },
-                new CityWeather()
-                {
-                        CityUniqueCode = "NYC",
-                        CityName = "New York",
-                        DateAndTime = new DateTime(2030, 1, 1, 3, 0, 0),
-                        TemperatureFahrenheit = 60
-                },
-                new CityWeather()
-                {
-                        CityUniqueCode = "PAR",
-                        CityName = "Paris",
-                        DateAndTime = new DateTime(2030, 1, 1, 9, 0, 0),
-                        TemperatureFahrenheit = 82
-                }
-            };
+        private readonly IWeatherService _weatherService;
+
+        public HomeController(IWeatherService weatherService)
+        {
+            _weatherService = weatherService;
+        }
 
         [Route("/")]
         public IActionResult Index()
         {
-            return View(CitiesWeather);
+            List<CityWeather> citiesWeather = _weatherService.GetWeatherDetails();
+
+            return View(citiesWeather);
         }
 
         [Route("/weather/{cityCode}")]
@@ -44,10 +29,12 @@ namespace WeatherAppPracticeView.Controllers
                 return View("InvalidCityCode");
             }
 
-            CityWeather? cityWeather =
-                 CitiesWeather.Where(city => string.Compare(city.CityUniqueCode, cityCode) == 0)
-                              .FirstOrDefault();
+            CityWeather? cityWeather = _weatherService.GetWeatherByCityCode(cityCode);
 
+            if (cityWeather is null)
+            {
+                return View("InvalidCityCode");
+            }
 
             return View(cityWeather);
         }

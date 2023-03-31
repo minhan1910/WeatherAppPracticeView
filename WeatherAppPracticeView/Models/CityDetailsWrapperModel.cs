@@ -1,4 +1,6 @@
-﻿namespace WeatherAppPracticeView.Models
+﻿using Models;
+
+namespace WeatherAppPracticeView.Models
 {
     public class CityDetailsWrapperModel
     {
