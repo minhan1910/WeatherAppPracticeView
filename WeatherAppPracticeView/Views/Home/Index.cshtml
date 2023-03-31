@@ -6,17 +6,10 @@
     <div class="flex">
         @foreach (CityWeather cityWeather in Model)
         {
-            <div class="box cursor-pointer w-30 @cityWeather.BackgroundColorByTemperature">
-                <div class="flex-borderless">
-                    <div class="w-50">
-                        <h4 class="text-dark-grey">@cityWeather.DateAndTime.ToString("hh:mm tt")</h4>
-                        <a href="~/weather/@cityWeather.CityUniqueCode" class="margin-top">Details</a>
-                    </div>
-                    <div class="w-50 border-left">
-                        <h1 class="margin-left">@cityWeather.TemperatureFahrenheit <sup class="text-grey">&#8457</sup></h1>
-                    </div>
-                </div>
-            </div>
+            @await Component.InvokeAsync("CityDetails", new { 
+                cityCode = cityWeather.CityUniqueCode,
+                isDetailsPage = 0
+            })
         }
     </div>
 </div>

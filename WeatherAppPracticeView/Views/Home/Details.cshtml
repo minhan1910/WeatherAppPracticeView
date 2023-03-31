@@ -1,12 +1,8 @@
-﻿@model CityWeather
-
-@{
-    CityWeather cityWeather = Model;
-}
-
+﻿
 <h1 class="margin-bottom">Weather</h1>          
 
-@if (Model is null) {
+@if (@ViewBag.cityCode is null)
+{
     <div class="page-content margin-auto ">
         <p class="text-red">The city code is not valid!</p>
     </div>
@@ -14,20 +10,10 @@
     <div class="margin-auto w-30">
         <div class="margin-left margin-top-200">
             <div class="flex">
-                <div class="box cursor-pointer w-30 @cityWeather.BackgroundColorByTemperature">
-                    <div class="flex-borderless">
-                        <div class="w-50">
-                            <h4 class="text-dark-grey">@cityWeather.DateAndTime.ToString("hh:mm tt")</h4>
-                            <a href="~/weather/@cityWeather.CityUniqueCode" class="margin-top">Details</a>
-                        </div>
-                        <div class="w-50 border-left">
-                            <h1 class="margin-left">@cityWeather.TemperatureFahrenheit <sup class="text-grey">&#8457</sup></h1>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <a href="/" class="text-center">Back to Weather Home Page</a>
-                    </div>
-                </div>
+                @await Component.InvokeAsync("CityDetails", new { 
+                    cityCode = @ViewBag.cityCode,
+                    isDetailsPage = 1
+                })
             </div>
         </div>
     </div>
