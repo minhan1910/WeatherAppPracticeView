@@ -6,10 +6,7 @@
     <div class="flex">
         @foreach (CityWeather cityWeather in Model)
         {
-            @await Component.InvokeAsync("CityDetails", new { 
-                cityCode = cityWeather.CityUniqueCode,
-                isDetailsPage = 0
-            })
+            @await Component.InvokeAsync("CityDetails", new { CityWeather = cityWeather })
         }
     </div>
 </div>

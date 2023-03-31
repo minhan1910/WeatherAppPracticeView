@@ -5,16 +5,13 @@ namespace WeatherAppPracticeView.Controllers
 {
     public class HomeController : Controller
     {
-        [Route("/")]
-        public IActionResult Index()
-        {
-            List<CityWeather> CitiesWeather = new()
+        private static readonly List<CityWeather> CitiesWeather = new()
             {
-                new CityWeather() 
-                { 
-                        CityUniqueCode = "LDN", 
-                        CityName = "London", 
-                        DateAndTime = new DateTime(2030, 1, 1, 8, 0, 0),  
+                new CityWeather()
+                {
+                        CityUniqueCode = "LDN",
+                        CityName = "London",
+                        DateAndTime = new DateTime(2030, 1, 1, 8, 0, 0),
                         TemperatureFahrenheit = 33
                 },
                 new CityWeather()
@@ -33,6 +30,9 @@ namespace WeatherAppPracticeView.Controllers
                 }
             };
 
+        [Route("/")]
+        public IActionResult Index()
+        {
             return View(CitiesWeather);
         }
 
@@ -44,9 +44,12 @@ namespace WeatherAppPracticeView.Controllers
                 return View("InvalidCityCode");
             }
 
-            ViewData["cityCode"] = cityCode;
+            CityWeather? cityWeather =
+                 CitiesWeather.Where(city => string.Compare(city.CityUniqueCode, cityCode) == 0)
+                              .FirstOrDefault();
 
-            return View();
+
+            return View(cityWeather);
         }
     }
 }
